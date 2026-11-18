@@ -1,0 +1,78 @@
+/* Reading modes, ported from the clipboard app (main.py, html.m-* rules).
+   Both the reader panel and the Markdown preview wrap the rendered text in
+   <div class="rm m-..."> and VS Code puts vscode-light / vscode-dark on body. */
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("fonts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* Dyslexia: letter spacing .12em (WCAG 1.4.12; Zorzi 2012
+   used ~.18em), word spacing ~3.5x letter spacing (BDA style guide), short
+   left-aligned lines, cream background, bold instead of italics. */
+.rm.m-dyslexia {
+  font-family: "Atkinson Hyperlegible", Verdana, Arial, sans-serif;
+  font-size: 1.125rem; line-height: 1.8; letter-spacing: .12em; word-spacing: .42em;
+  max-width: 68ch;
+}
+body.vscode-light:has(.rm.m-dyslexia) { background: #fbf7ec; color: #2b2b2b; }
+body.vscode-dark:has(.rm.m-dyslexia) { background: #1e1d1a; color: #e8e4d8; }
+.rm.m-dyslexia p, .rm.m-dyslexia li { text-align: left; }
+.rm.m-dyslexia p { margin: 0 0 1.4em; }
+.rm.m-dyslexia em, .rm.m-dyslexia i { font-style: normal; font-weight: 700; }
+.rm.m-dyslexia code, .rm.m-dyslexia pre { letter-spacing: normal; word-spacing: normal; }
+.rm.m-dyslexia pre { line-height: 1.6; }
+
+/* Every mode: links underlined and no motion. Guidance (W3C COGA, WCAG 2.3.3)
+   treats both as good for everyone, not as features of one group. */
+.rm a { text-decoration: underline; }
+body:has(.rm) *, body:has(.rm) *::before, body:has(.rm) *::after {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+}
+
+/* Autism: muted colours, calm and predictable. */
+body.vscode-light:has(.rm.m-autism) { background: #f6f6f3; color: #333333; }
+body.vscode-dark:has(.rm.m-autism) { background: #16181c; color: #d4d4cf; }
+body.vscode-light .rm.m-autism a { color: #3d5a80; }
+body.vscode-dark .rm.m-autism a { color: #8fa8c8; }
+body.vscode-light .rm.m-autism mark { background: #e9e4cf; }
+body.vscode-dark .rm.m-autism mark { background: #4a4535; }
+
+/* ADHD: one block in focus at a time, scannable headings and key
+   terms, visible reading progress. Dimmed text stays at 0.7 so it keeps a 4.5:1
+   contrast on the cream and calm backgrounds and VS Code's defaults. */
+.rm.m-adhd { max-width: 70ch; }
+.rm.m-adhd:hover > * { opacity: .7; }
+.rm.m-adhd:hover > *:hover { opacity: 1; }
+.rm.m-adhd p, .rm.m-adhd ul, .rm.m-adhd ol { margin-bottom: 1.3em; }
+.rm.m-adhd h2, .rm.m-adhd h3 { border-left: .3em solid #0969da; padding-left: .5em; }
+body.vscode-dark .rm.m-adhd h2, body.vscode-dark .rm.m-adhd h3 { border-left-color: #4493f8; }
+.rm.m-adhd strong { background: #fff1a8; color: #1f2328; padding: 0 .15em; border-radius: 3px; }
+body.vscode-dark .rm.m-adhd strong { background: #5a4a00; color: inherit; }
+
+/* Reader panel only. */
+#readprogress { display: none; }
+body:has(.rm.m-adhd) #readprogress {
+  display: block; position: fixed; left: 0; top: 0; height: 4px; width: 0;
+  background: #0969da; z-index: 10;
+}
+body.reader { padding: 1rem 1.5rem 4rem; }
+body.reader .rm { margin: 0 auto; }
+body.reader header {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  margin: 0 auto 1rem; max-width: 70ch; font-size: .85rem; opacity: .75;
+}
+body.reader header button {
+  font: inherit; color: var(--vscode-button-foreground); background: var(--vscode-button-background);
+  border: 0; border-radius: 4px; padding: .3rem .7rem; cursor: pointer;
+}
+body.reader pre {
+  white-space: pre-wrap; padding: .8rem; border-radius: 6px;
+  background: var(--vscode-textCodeBlock-background);
+}

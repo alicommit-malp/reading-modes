@@ -1,0 +1,158 @@
+{
+  "name": "reading-modes",
+  "displayName": "Reading Modes",
+  "description": "Dyslexia, autism and ADHD reading modes for the editor, Markdown preview and terminal",
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#3d5a80",
+    "theme": "dark"
+  },
+  "version": "0.2.0",
+  "publisher": "alialp",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alicommit-malp/reading-modes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alicommit-malp/reading-modes/issues"
+  },
+  "homepage": "https://github.com/alicommit-malp/reading-modes#readme",
+  "type": "module",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.cjs",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "configuration": {
+      "title": "Reading Modes",
+      "properties": {
+        "readingModes.modes": {
+          "type": "array",
+          "default": [],
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "dyslexia",
+              "autism",
+              "adhd"
+            ],
+            "enumDescriptions": [
+              "Dyslexia: wider spacing, legible font, cream background",
+              "Autism: muted colours, no motion",
+              "ADHD: one paragraph in focus, highlighted key terms"
+            ]
+          },
+          "description": "Active reading modes. While a mode is on, a few editor and terminal settings are changed; your own values come back when it is switched off. Turn all modes off before uninstalling to get your settings back.",
+          "scope": "application"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "readingModes.pick",
+        "title": "Choose Modes",
+        "category": "Reading Modes"
+      },
+      {
+        "command": "readingModes.off",
+        "title": "Turn All Modes Off",
+        "category": "Reading Modes"
+      },
+      {
+        "command": "readingModes.toggleDyslexia",
+        "title": "Toggle Dyslexia Mode",
+        "category": "Reading Modes"
+      },
+      {
+        "command": "readingModes.toggleAutism",
+        "title": "Toggle Autism Mode",
+        "category": "Reading Modes"
+      },
+      {
+        "command": "readingModes.toggleAdhd",
+        "title": "Toggle ADHD Mode",
+        "category": "Reading Modes"
+      },
+      {
+        "command": "readingModes.readTerminal",
+        "title": "Read Terminal",
+        "category": "Reading Modes",
+        "icon": "$(book)"
+      },
+      {
+        "command": "readingModes.readSelection",
+        "title": "Read Selection",
+        "category": "Reading Modes"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "readingModes.readTerminal",
+          "when": "view == terminal",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "readingModes.readSelection",
+          "when": "editorHasSelection",
+          "group": "9_cutcopypaste"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "readingModes.readTerminal",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "terminalFocus"
+      },
+      {
+        "command": "readingModes.readSelection",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorTextFocus"
+      }
+    ],
+    "markdown.markdownItPlugins": true,
+    "markdown.previewStyles": [
+      "./media/modes.css"
+    ]
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test \"test/*.test.ts\"",
+    "package": "npm run typecheck && npm test && npm run build && vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "^5.3.0",
+    "markdown-it": "^14.3.3"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.2.0",
+    "@types/node": "^20.19.43",
+    "@types/vscode": "^1.93.0",
+    "@vscode/vsce": "^4.1.1",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "dyslexia",
+    "autism",
+    "adhd",
+    "reading",
+    "focus"
+  ]
+}
