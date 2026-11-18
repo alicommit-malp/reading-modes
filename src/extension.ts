@@ -22,6 +22,14 @@ const userSettings: ConfigStore = {
     await vscode.workspace
       .getConfiguration(undefined, lang ? { languageId: lang } : undefined)
       .update(key, value, vscode.ConfigurationTarget.Global, lang ? true : undefined);
+    // Removing the last key of a language block leaves an empty "[markdown]": {}.
+    if (lang && value === undefined) {
+      const block = `[${lang}]`;
+      const left = vscode.workspace.getConfiguration().inspect<object>(block)?.globalValue;
+      if (left && Object.keys(left).length === 0) {
+        await vscode.workspace.getConfiguration().update(block, undefined, vscode.ConfigurationTarget.Global);
+      }
+    }
   },
 };
 

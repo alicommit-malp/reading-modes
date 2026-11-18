@@ -4,6 +4,8 @@ Dyslexia, autism and ADHD reading modes for VS Code: the editor, the Markdown pr
 The modes draw on published reading guidance for each group. Needs overlap and differ from person to person,
 so turn on whichever modes help you, whatever their name.
 
+![Reading Modes: the Markdown preview and the terminal change as the dyslexia, autism and ADHD modes are switched on](https://raw.githubusercontent.com/alicommit-malp/reading-modes/main/media/demo.gif)
+
 ## Use
 
 - Click the eye in the status bar (or run "Reading Modes: Choose Modes") and tick the modes you want.
