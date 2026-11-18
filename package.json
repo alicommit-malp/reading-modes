@@ -132,19 +132,24 @@
     "build": "node esbuild.mjs",
     "typecheck": "tsc --noEmit",
     "test": "node --test \"test/*.test.ts\"",
-    "package": "npm run typecheck && npm test && npm run build && vsce package --no-dependencies"
+    "package": "npm run typecheck && npm test && npm run build && vsce package --no-dependencies",
+    "build:browser": "node scripts/build-browser.mjs",
+    "lint:browser": "npm run build:browser && web-ext lint --source-dir browser",
+    "package:browser": "npm run build:browser && web-ext build --source-dir browser --artifacts-dir dist-browser --overwrite-dest"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "^5.3.0",
     "markdown-it": "^14.3.3"
   },
   "devDependencies": {
+    "@mozilla/readability": "^0.6.0",
     "@types/markdown-it": "^14.2.0",
     "@types/node": "^20.19.43",
     "@types/vscode": "^1.93.0",
     "@vscode/vsce": "^4.1.1",
     "esbuild": "^0.28.2",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "web-ext": "^10.8.0"
   },
   "keywords": [
     "accessibility",

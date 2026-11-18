@@ -1,0 +1,46 @@
+/* Reading modes on any web page. Every rule hangs off an rm-* class that
+   content.js puts on <html>, so with no mode on this file does nothing.
+   Pages are not ours to redesign: spacing follows WCAG 1.4.12, the values every
+   page has to survive, and backgrounds, line length and headings are left alone.
+   The full styles (cream background, 68ch lines) are in the reader view. */
+
+/* Dyslexia: WCAG 1.4.12 text spacing, the reading font on text, bold for italics.
+   The font is set on text containers, not on *, so icon fonts keep their own. */
+html.rm-dyslexia body *:not(pre, pre *, code, code *, kbd, samp) {
+  line-height: 1.5 !important; letter-spacing: .12em !important; word-spacing: .16em !important;
+}
+/* Code would inherit the spacing from its container; keep it monospaced-tight. */
+html.rm-dyslexia :is(pre, pre *, code, code *, kbd, samp) { letter-spacing: normal !important; word-spacing: normal !important; }
+html.rm-dyslexia body p { margin-bottom: 2em !important; }
+html.rm-dyslexia :is(body, p, li, dd, dt, blockquote, td, th, figcaption, label, h1, h2, h3, h4, h5, h6, article) {
+  font-family: "Atkinson Hyperlegible", Verdana, Arial, sans-serif !important;
+}
+html.rm-dyslexia :is(p, li, dd, blockquote) { text-align: left !important; }
+html.rm-dyslexia :is(em, i, cite, dfn, var, address):not([class]) { font-style: normal !important; font-weight: 700 !important; }
+
+/* Every mode: nothing moves, links in text are underlined. Animations jump to
+   their end instead of being removed, so fade-ins still show their content and
+   pages waiting for animationend / transitionend still get the event. */
+html.rm-any *, html.rm-any *::before, html.rm-any *::after {
+  animation-duration: .001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important;
+  transition-duration: .001ms !important; transition-delay: 0s !important; scroll-behavior: auto !important;
+}
+html.rm-any :is(p, li, dd, blockquote, td) a { text-decoration: underline !important; }
+
+/* Autism: muted colours. A filter on the root element keeps fixed headers working;
+   content.js sets this class in the top frame only, so iframes are not muted twice. */
+html.rm-autism { filter: saturate(.7); }
+
+/* ADHD: the text block under the pointer stays sharp and the rest dims to 0.7
+   (still 4.5:1 for normal text on common themes), key terms highlighted, progress bar. */
+html.rm-adhd.rm-reading :is(p, li, dd, dt, blockquote, pre, figcaption, td, th, h1, h2, h3, h4, h5, h6):not(.rm-focus, .rm-focus *, :has(.rm-focus)) {
+  opacity: .7;
+}
+html.rm-adhd :is(p, li, dd, blockquote) :is(strong, b) {
+  background: #fff1a8 !important; color: #1f2328 !important; padding: 0 .15em; border-radius: 3px;
+}
+#rm-progress {
+  position: fixed !important; left: 0 !important; top: 0 !important; height: 4px !important;
+  background: #0969da !important; z-index: 2147483647 !important; pointer-events: none !important;
+  margin: 0 !important; padding: 0 !important; border: 0 !important;
+}

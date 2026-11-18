@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root { color-scheme: light dark; }
+    body { width: 300px; margin: 0; padding: 12px 14px; font: 13px/1.45 system-ui, sans-serif; }
+    h1 { font-size: 15px; margin: 0 0 10px; }
+    label { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; cursor: pointer; }
+    label input { margin-top: 3px; }
+    label b { display: block; }
+    label span { opacity: .75; }
+    button:disabled { opacity: .5; cursor: default; }
+    button { width: 100%; margin-top: 10px; padding: 7px; font: inherit; cursor: pointer;
+      background: #3d5a80; color: #fff; border: 0; border-radius: 4px; }
+    p { margin: 8px 0 0; opacity: .7; font-size: 12px; }
+  </style>
+  <script type="module" src="popup.js"></script>
+</head>
+<body>
+  <h1>Reading Modes</h1>
+  <div id="modes"></div>
+  <button id="read">Read this page</button>
+  <p id="error" role="alert" style="color:#c0392b;opacity:1"></p>
+  <p>Alt+Shift+R reads the selection, or the page when nothing is selected.</p>
+</body>
+</html>

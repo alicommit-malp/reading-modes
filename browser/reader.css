@@ -1,0 +1,15 @@
+/* Base look of the reader page. The mode styles come from modes.css, the same
+   file the VS Code reader uses; it keys light and dark on body.vscode-light /
+   body.vscode-dark, which reader.js sets from the system colour scheme. */
+body.vscode-light { background: #ffffff; color: #1f2328; }
+body.vscode-dark { background: #1e1e1e; color: #d4d4d4; }
+body.vscode-light { --vscode-textCodeBlock-background: #f3f3f3; }
+body.vscode-dark { --vscode-textCodeBlock-background: #2a2a2a; }
+body { margin: 0; font: 1.0625rem/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+#doc { max-width: 70ch; }
+#doc img, #doc video, #doc figure { max-width: 100%; height: auto; }
+#doc table { border-collapse: collapse; display: block; overflow-x: auto; }
+#doc td, #doc th { border: 1px solid color-mix(in srgb, currentColor 25%, transparent); padding: .3em .6em; }
+#doc .byline { opacity: .75; font-style: normal; }
+#doc .error { border-left: .3em solid #c0392b; padding-left: .8em; }
+header a { color: inherit; }

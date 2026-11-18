@@ -68,3 +68,52 @@ Not everything here is equally well supported. In short:
     npm install
     npm run package   # typecheck, tests, bundle, reading-modes-<version>.vsix
     code --install-extension reading-modes-<version>.vsix
+
+## Browser extension (Chrome, Firefox, Safari)
+
+`browser/` holds the same three modes as one Manifest V3 extension for Chrome and Edge (121+),
+Firefox (140+) and Safari. Plain JavaScript, nothing leaves the browser.
+
+- Click the toolbar icon (Alt+Shift+M) and tick the modes. The choice is kept in the browser's
+  synced storage and applies to every open tab at once.
+- **Reader view**: "Read this page" in the popup, Alt+Shift+R, or right-click → "Read selection /
+  page with Reading Modes". It opens the selection, or the page's main article (found with Mozilla
+  Readability), in a tab styled by `media/modes.css`, the stylesheet of the VS Code reader panel:
+  the full dyslexia styles (cream background, 68-character lines), headings marked and the
+  paragraph under the pointer in focus for ADHD, `gg`/`G` to jump. The page's markup is reduced to
+  plain text structure, links and images before it is shown.
+
+On ordinary web pages the modes are lighter, because the page's own layout has to keep working:
+
+| Mode | Web pages |
+|------|-----------|
+| Dyslexia | WCAG 1.4.12 text spacing (line height 1.5, letter spacing 0.12em, word spacing 0.16em, 2em after paragraphs), Atkinson Hyperlegible on text, left-aligned, bold instead of italics; code is left alone |
+| Autism | colours desaturated to 70% |
+| ADHD | the text block under the pointer stays sharp and the others dim to 70%, bold terms highlighted, reading progress bar |
+
+With any mode on, nothing animates and links inside text are underlined.
+
+Build and load:
+
+    npm install
+    npm run build:browser     # copies modes.css, the font and Readability into browser/
+    npm run lint:browser      # web-ext lint (expected warnings: Firefox ignores
+                              # background.service_worker; innerHTML inside Readability)
+
+- **Chrome / Edge**: `chrome://extensions` → Developer mode → Load unpacked → `browser/`.
+- **Firefox**: `about:debugging#/runtime/this-firefox` → Load Temporary Add-on →
+  `browser/manifest.json`. For a permanent install, `npm run package:browser` builds the zip in
+  `dist-browser/` to sign on addons.mozilla.org.
+- **Safari** (macOS, Xcode): `xcrun safari-web-extension-converter browser/`, build the generated
+  app, then enable the extension in Safari → Settings → Extensions.
+
+Limits: pages can override styles in ways no extension can predict, so an odd layout is possible
+with dyslexia mode on. Modes are global, not per site: untick one while on such a page, or use the
+reader view there. Browser pages
+(`chrome://`, the extension stores) and some PDFs cannot be read or restyled. A page with a strict
+style policy can block the reading font; the text then falls back to Verdana. The reader keeps the
+20 newest documents until the browser closes.
+
+## Privacy
+
+Nothing is collected or sent anywhere. See [PRIVACY.md](PRIVACY.md).

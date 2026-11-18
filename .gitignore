@@ -2,3 +2,7 @@ node_modules/
 dist/
 media/fonts/
 *.vsix
+browser/fonts/
+browser/vendor/
+browser/modes.css
+dist-browser/
