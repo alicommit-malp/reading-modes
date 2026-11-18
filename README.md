@@ -1,5 +1,10 @@
 # Reading Modes for VS Code
 
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/alialp.reading-modes?label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=alialp.reading-modes)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/alialp.reading-modes)](https://marketplace.visualstudio.com/items?itemName=alialp.reading-modes)
+
+**[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=alialp.reading-modes)**, or run `code --install-extension alialp.reading-modes`.
+
 Dyslexia, autism and ADHD reading modes for VS Code: the editor, the Markdown preview and the terminal.
 The modes draw on published reading guidance for each group. Needs overlap and differ from person to person,
 so turn on whichever modes help you, whatever their name.
